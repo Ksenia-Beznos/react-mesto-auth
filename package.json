@@ -5,7 +5,7 @@
 		"type": "git",
 		"url": "git+https://github.com/Ksenia-Beznos/mesto-react.git"
 	},
-	"homepage": "https://ksenia-beznos.github.io/mesto-react/",
+	"homepage": "https://ksenia-beznos.github.io/react-mesto-auth/",
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^13.4.0",

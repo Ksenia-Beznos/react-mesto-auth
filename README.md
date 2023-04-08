@@ -1,6 +1,6 @@
 
 ### Ссылка на проект
-- https://ksenia-beznos.github.io/mesto-react/
+- https://ksenia-beznos.github.io/react-mesto-auth/
 
 Структура сайта и организация файлов составлена по технологии **БЭМ Nested**.
 
