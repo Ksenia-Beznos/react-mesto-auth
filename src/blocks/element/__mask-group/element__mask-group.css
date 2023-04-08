@@ -1,0 +1,8 @@
+.element__mask-group {
+  margin: 0;
+  padding: 21px 20px 20px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+

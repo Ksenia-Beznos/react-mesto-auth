@@ -1,0 +1,17 @@
+.popup__heading {
+  margin: 0;
+  margin-top: 34px;
+  margin-bottom: 48px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+@media screen and (max-width: 550px) {
+  .popup__heading {
+    margin-top: 25px;
+    margin-bottom: 74px;
+    font-size: 18px;
+  }
+}

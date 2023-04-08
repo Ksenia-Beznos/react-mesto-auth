@@ -1,0 +1,26 @@
+.profile__container {
+  display: flex;
+  margin-left: 30px;
+  column-gap: 244px;
+}
+
+@media screen and (max-width: 930px) {
+  .profile__container {
+    column-gap: 120px;
+    margin-left: 15px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .profile__container {
+    flex-direction: column;
+    row-gap: 29px;
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__container {
+    row-gap: 33px;
+  }
+}
