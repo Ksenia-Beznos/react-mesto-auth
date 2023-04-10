@@ -7,6 +7,18 @@
 @import url(blocks/header/header.css);
 @import url(blocks/header/__logo/header__logo.css);
 
+@import url(blocks/auth/__form/auth__form.css);
+@import url(blocks/auth/__btn/auth__btn.css);
+@import url(blocks/auth/__input/auth__input.css);
+@import url(blocks/auth/__title/auth__title.css);
+@import url(blocks/auth/__signin/auth__signin.css);
+@import url(blocks/auth/__link-enter/auth__link-enter.css);
+
+@import url(blocks/popup/__image-tooltip/popup__image-tooltip.css);
+@import url(blocks/popup/__text-tooltip/popup__text-tooltip.css);
+@import url(blocks/popup/__container-tooltip/popup__container-tooltip.css);
+
+
 @import url(blocks/profile/profile.css);
 @import url(blocks/profile/__avatar/profile__avatar.css);
 @import url(blocks/profile/__container/profile__container.css);
