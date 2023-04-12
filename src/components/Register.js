@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { register } from '../utils/apiAuth';
 
-function Register({ title, btnName, openTooltip, changeTooltip }) {
+function Register({ title, btnName, openTooltip, changeTooltip, setIsSuccess }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -20,9 +20,11 @@ function Register({ title, btnName, openTooltip, changeTooltip }) {
 			if (res === false) {
 				openTooltip(true);
 				changeTooltip(false);
+				setIsSuccess({ register: true, login: false });
 			} else {
 				changeTooltip(true);
 				openTooltip(true);
+				setIsSuccess({ register: false, login: false });
 			}
 		});
 	};

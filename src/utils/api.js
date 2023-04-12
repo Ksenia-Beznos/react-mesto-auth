@@ -110,7 +110,7 @@ class Api {
 export const api = new Api({
 	baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-60',
 	headers: {
-		authorization: 'f46fad9a-c49c-470a-a213-b2fd2a66b71a', // токен
+		authorization: 'cf6c74e7-9078-4e9e-a5a2-23814b988d36', // токен
 		'Content-Type': 'application/json',
 	},
 });

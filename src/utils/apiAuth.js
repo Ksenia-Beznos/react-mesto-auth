@@ -37,3 +37,21 @@ export function login(email, password) {
 		})
 		.catch((err) => console.log(err));
 }
+
+export const loginWithToken = () => {
+	return fetch(`${BASE_URL}/users/me`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${localStorage.getItem('token')}`,
+		},
+	})
+		.then((res) => {
+			if (res.status === 200) {
+				return res.json();
+			} else {
+        return res;
+      }
+		})
+		.catch((err) => console.log(err));
+};

@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { login } from '../utils/apiAuth';
+import { useNavigate } from 'react-router-dom';
 
-function Login({ title, btnName, openTooltip, changeTooltipLogin }) {
+function Login({ title, btnName, openTooltip, changeTooltipLogin, setIsSuccess, setLoggedIn }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+
+	const navigate = useNavigate();
 
 	function handleChangeEmail(e) {
 		setEmail(e.target.value);
@@ -16,13 +19,18 @@ function Login({ title, btnName, openTooltip, changeTooltipLogin }) {
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
 		login(email, password).then((res) => {
-			console.log(res)
-			if (res === false) {
+			console.log(res);
+			if (res !== false) {
 				openTooltip(true);
 				changeTooltipLogin(false);
+				setIsSuccess({ register: false, login: true });
+				setLoggedIn(true);
+				navigate('/', { replace: true });
+				localStorage.setItem('token', res.token);
 			} else {
 				changeTooltipLogin(true);
 				openTooltip(true);
+				setIsSuccess({ register: false, login: false });
 			}
 		});
 	};

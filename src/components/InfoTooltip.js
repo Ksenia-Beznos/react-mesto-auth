@@ -1,7 +1,7 @@
 import FailIcon from '../images/FailIcon.svg';
 import SuccessIcon from '../images/SuccessIcon.svg';
 
-function InfoTooltip({ isSuccessfully, isSuccessfullyLogin, onClose, isOpen }) {
+function InfoTooltip({ isSuccessfully, isSuccessfullyLogin, onClose, isOpen, isSuccess }) {
 	const signUpResult = {
 		success: 'Вы успешно зарегистрировались!',
 		loginSuccess: 'Заявка на кредит одобрена',
@@ -27,13 +27,14 @@ function InfoTooltip({ isSuccessfully, isSuccessfullyLogin, onClose, isOpen }) {
 
 				<h2 className='popup__text-tooltip'>
 					{console.log(isSuccessfully, isSuccessfullyLogin)}
-					{isSuccessfully && isSuccessfullyLogin
+					{/* {isSuccessfully && isSuccessfullyLogin
 						? isSuccessfullyLogin
 							? signUpResult.loginSuccess
 							: signUpResult.fail
 						: isSuccessfully
 						? signUpResult.success
-						: signUpResult.fail}
+						: signUpResult.fail} */}
+					{/* {isSuccess.register && isSuccessfully ? signUpResult.success : signUpResult.fail} */}
 				</h2>
 			</div>
 		</div>

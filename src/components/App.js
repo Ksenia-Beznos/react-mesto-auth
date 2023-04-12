@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -14,6 +14,7 @@ import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
+import { loginWithToken } from '../utils/apiAuth';
 
 function App() {
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -31,6 +32,21 @@ function App() {
 	const [isSuccessfully, setIsSuccessfully] = useState(false);
 	const [isSuccessfullyLogin, setIsSuccessfullyLogin] = useState(false);
 
+	const [isSuccess, setIsSuccess] = useState({ login: false, register: false });
+
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		loginWithToken()
+			.then((res) => {
+				console.log(res)
+				if (typeof res.data === 'object') {
+					setLoggedIn(true);
+					navigate('/', { replace: true });
+				}
+			})
+			.catch((e) => console.log(e));
+	}, []);
 
 	useEffect(() => {
 		api
@@ -170,6 +186,7 @@ function App() {
 								btnName='Зарегистрироваться'
 								openTooltip={setIsInfoTooltipOpen}
 								changeTooltip={setIsSuccessfully}
+								setIsSuccess={setIsSuccess}
 							/>
 						}
 					/>
@@ -182,6 +199,8 @@ function App() {
 								openTooltip={setIsInfoTooltipOpen}
 								changeTooltip={setIsSuccessfully}
 								changeTooltipLogin={setIsSuccessfullyLogin}
+								setIsSuccess={setIsSuccess}
+								setLoggedIn={setLoggedIn}
 							/>
 						}
 					/>
@@ -227,6 +246,7 @@ function App() {
 				onClose={closeAllPopups}
 				isSuccessfully={isSuccessfully}
 				isSuccessfullyLogin={isSuccessfullyLogin}
+				isSuccess={isSuccess}
 			/>
 
 			<Footer />
