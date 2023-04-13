@@ -1,0 +1,10 @@
+.header__buttons {
+	text-decoration: none;
+	color: white;
+	height: 22px;
+}
+
+.header__buttons:hover {
+	cursor: pointer;
+	opacity: 0.6;
+}

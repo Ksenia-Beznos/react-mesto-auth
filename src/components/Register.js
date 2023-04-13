@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { register } from '../utils/apiAuth';
 
-function Register({ title, btnName, openTooltip, changeTooltip, setIsSuccess }) {
+function Register({ title, btnName, setIsHomePage, handleSubmit }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+
+	useEffect(() => {
+		setIsHomePage({ home: false, login: false, register: true });
+	}, []);
 
 	function handleChangeEmail(e) {
 		setEmail(e.target.value);
@@ -14,23 +17,12 @@ function Register({ title, btnName, openTooltip, changeTooltip, setIsSuccess }) 
 		setPassword(e.target.value);
 	}
 
-	const handleSubmit = (evt) => {
-		evt.preventDefault();
-		register(email, password).then((res) => {
-			if (res === false) {
-				openTooltip(true);
-				changeTooltip(false);
-				setIsSuccess({ register: true, login: false });
-			} else {
-				changeTooltip(true);
-				openTooltip(true);
-				setIsSuccess({ register: false, login: false });
-			}
-		});
-	};
+	function handleSubmitRegister(e) {
+		handleSubmit(e, email, password)
+	}
 
 	return (
-		<form className='auth__form' noValidate onSubmit={handleSubmit}>
+		<form className='auth__form' noValidate onSubmit={handleSubmitRegister}>
 			<h2 className='auth__title'>{title}</h2>
 			<input
 				className='auth__input'

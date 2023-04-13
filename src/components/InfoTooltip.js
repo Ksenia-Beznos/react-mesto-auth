@@ -1,7 +1,7 @@
 import FailIcon from '../images/FailIcon.svg';
 import SuccessIcon from '../images/SuccessIcon.svg';
 
-function InfoTooltip({ isSuccessfully, isSuccessfullyLogin, onClose, isOpen, isSuccess }) {
+function InfoTooltip({ onClose, isOpen, isStatus }) {
 	const signUpResult = {
 		success: 'Вы успешно зарегистрировались!',
 		loginSuccess: 'Заявка на кредит одобрена',
@@ -20,21 +20,18 @@ function InfoTooltip({ isSuccessfully, isSuccessfullyLogin, onClose, isOpen, isS
 				<div>
 					<img
 						className='popup__image-tooltip'
-						src={isSuccessfully || isSuccessfullyLogin ? SuccessIcon : FailIcon}
+						src={isStatus.register.complete || isStatus.login.complete ? SuccessIcon : FailIcon}
 						alt='иконка состояния'
 					/>
 				</div>
 
 				<h2 className='popup__text-tooltip'>
-					{console.log(isSuccessfully, isSuccessfullyLogin)}
-					{/* {isSuccessfully && isSuccessfullyLogin
-						? isSuccessfullyLogin
-							? signUpResult.loginSuccess
-							: signUpResult.fail
-						: isSuccessfully
+					{console.log()}
+					{isStatus.register.status && isStatus.register.complete
 						? signUpResult.success
-						: signUpResult.fail} */}
-					{/* {isSuccess.register && isSuccessfully ? signUpResult.success : signUpResult.fail} */}
+						: isStatus.login.status && isStatus.login.complete
+						? signUpResult.loginSuccess
+						: signUpResult.fail}
 				</h2>
 			</div>
 		</div>

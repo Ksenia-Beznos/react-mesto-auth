@@ -1,16 +1,34 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onOpenImagePopup, onDeleteCard, onCardLike, cards }) {
+function Main({
+	onEditAvatar,
+	onEditProfile,
+	onAddPlace,
+	onOpenImagePopup,
+	onDeleteCard,
+	onCardLike,
+	cards,
+	setIsHomePage,
+}) {
 	const currentUser = useContext(CurrentUserContext);
+
+	useEffect(() => {
+		setIsHomePage({ home: true, login: false, register: false });
+	}, []);
 
 	return (
 		<main className='content'>
 			{/* Section Profile */}
 			<section className='profile'>
 				<div className='profile__avatar-outside'>
-					<button className='profile__avatar-button' type='button' aria-label='Изменить аватар' onClick={onEditAvatar}>
+					<button
+						className='profile__avatar-button'
+						type='button'
+						aria-label='Изменить аватар'
+						onClick={onEditAvatar}
+					>
 						<img className='profile__avatar' src={currentUser.avatar} alt='Аватар' />
 					</button>
 				</div>
@@ -25,7 +43,12 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onOpenImagePopup, onDel
 							onClick={onEditProfile}
 						></button>
 					</div>
-					<button className='profile__add-button' type='button' aria-label='Добавить' onClick={onAddPlace}></button>
+					<button
+						className='profile__add-button'
+						type='button'
+						aria-label='Добавить'
+						onClick={onAddPlace}
+					></button>
 				</div>
 			</section>
 

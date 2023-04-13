@@ -1,11 +1,10 @@
-.auth__link-enter{
-  color: inherit;
-  text-decoration: none;
+.auth__link-enter {
+	color: inherit;
+	text-decoration: none;
 }
 
-.auth__link-enter:hover{
-  cursor: pointer;
-  color: #fff;
-  opacity: .6;
-
+.auth__link-enter:hover {
+	cursor: pointer;
+	color: #fff;
+	opacity: 0.6;
 }

@@ -15,6 +15,7 @@ import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
 import { loginWithToken } from '../utils/apiAuth';
+import { login, register } from '../utils/apiAuth';
 
 function App() {
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -29,20 +30,27 @@ function App() {
 
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-	const [isSuccessfully, setIsSuccessfully] = useState(false);
-	const [isSuccessfullyLogin, setIsSuccessfullyLogin] = useState(false);
-
-	const [isSuccess, setIsSuccess] = useState({ login: false, register: false });
+	const [isStatus, setIsStatus] = useState({
+		register: { status: false, complete: false },
+		login: { status: false, complete: false },
+	});
+	const [isHomePage, setIsHomePage] = useState({
+		home: false,
+		login: false,
+		register: false,
+	});
+	const [email, setEmail] = useState('');
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		if('token' === true)
 		loginWithToken()
 			.then((res) => {
-				console.log(res)
-				if (typeof res.data === 'object') {
+				if (res && typeof res.data === 'object') {
 					setLoggedIn(true);
 					navigate('/', { replace: true });
+					setEmail(res.data.email);
 				}
 			})
 			.catch((e) => console.log(e));
@@ -157,10 +165,63 @@ function App() {
 			.catch((err) => console.log(err));
 	}
 
+	const handleLoginSubmit = (evt, email, password) => {
+		evt.preventDefault();
+		login(email, password)
+			.then((res) => {
+				console.log(res);
+				if (res !== false) {
+					setLoggedIn(true);
+					navigate('/', { replace: true });
+					localStorage.setItem('token', res.token);
+					setEmail(email);
+					setIsStatus({
+						register: { status: false, complete: false },
+						login: { status: true, complete: true },
+					});
+				} else {
+					setIsStatus({
+						register: { status: false, complete: false },
+						login: { status: true, complete: false },
+					});
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			.finally(() => {
+				setIsInfoTooltipOpen(true);
+			});
+	};
+
+	const handleSubmitRegister = (evt, email, password) => {
+		evt.preventDefault();
+		register(email, password)
+			.then((res) => {
+				if (res !== false) {
+					setIsStatus({
+						register: { status: true, complete: true },
+						login: { status: false, complete: false },
+					});
+					navigate('/sign-in', { replace: true });
+				} else {
+					setIsStatus({
+						register: { status: true, complete: false },
+						login: { status: false, complete: false },
+					});
+				}
+			})
+			.catch((err) => console.log(err))
+			.finally(() => {
+				setIsInfoTooltipOpen(true);
+			});
+	};
+
 	return (
 		<div className='page'>
-			<Header />
 			<CurrentUserContext.Provider value={currentUser}>
+				<Header isHomePage={isHomePage} email={email} setEmail={setEmail} />
+
 				<Routes>
 					<Route
 						path='/'
@@ -175,6 +236,7 @@ function App() {
 								onCardLike={handleCardLike}
 								onDeleteCard={handleCardDelete}
 								cards={cards}
+								setIsHomePage={setIsHomePage}
 							/>
 						}
 					/>
@@ -185,8 +247,9 @@ function App() {
 								title='Регистрация'
 								btnName='Зарегистрироваться'
 								openTooltip={setIsInfoTooltipOpen}
-								changeTooltip={setIsSuccessfully}
-								setIsSuccess={setIsSuccess}
+								setIsStatus={setIsStatus}
+								setIsHomePage={setIsHomePage}
+								handleSubmit={handleSubmitRegister}
 							/>
 						}
 					/>
@@ -196,11 +259,11 @@ function App() {
 							<Login
 								title='Вход'
 								btnName='Войти'
-								openTooltip={setIsInfoTooltipOpen}
-								changeTooltip={setIsSuccessfully}
-								changeTooltipLogin={setIsSuccessfullyLogin}
-								setIsSuccess={setIsSuccess}
+								setIsStatus={setIsStatus}
 								setLoggedIn={setLoggedIn}
+								setIsHomePage={setIsHomePage}
+								setUserEmail={setEmail}
+								handleSubmit={handleLoginSubmit}
 							/>
 						}
 					/>
@@ -241,13 +304,7 @@ function App() {
 			/>
 			<ImagePopup isOpen={isImagePopupOpen} onClose={closeAllPopups} card={selectedCard} />
 
-			<InfoTooltip
-				isOpen={isInfoTooltipOpen}
-				onClose={closeAllPopups}
-				isSuccessfully={isSuccessfully}
-				isSuccessfullyLogin={isSuccessfullyLogin}
-				isSuccess={isSuccess}
-			/>
+			<InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} isStatus={isStatus} />
 
 			<Footer />
 		</div>

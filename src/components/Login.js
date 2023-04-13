@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { login } from '../utils/apiAuth';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
-function Login({ title, btnName, openTooltip, changeTooltipLogin, setIsSuccess, setLoggedIn }) {
+function Login({ title, btnName, setIsHomePage, handleSubmit }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
-	const navigate = useNavigate();
+	useEffect(() => {
+		setIsHomePage({ home: false, login: true, register: false });
+	}, []);
 
 	function handleChangeEmail(e) {
 		setEmail(e.target.value);
@@ -16,27 +16,12 @@ function Login({ title, btnName, openTooltip, changeTooltipLogin, setIsSuccess, 
 		setPassword(e.target.value);
 	}
 
-	const handleSubmit = (evt) => {
-		evt.preventDefault();
-		login(email, password).then((res) => {
-			console.log(res);
-			if (res !== false) {
-				openTooltip(true);
-				changeTooltipLogin(false);
-				setIsSuccess({ register: false, login: true });
-				setLoggedIn(true);
-				navigate('/', { replace: true });
-				localStorage.setItem('token', res.token);
-			} else {
-				changeTooltipLogin(true);
-				openTooltip(true);
-				setIsSuccess({ register: false, login: false });
-			}
-		});
-	};
+	function handleLoginSubmit(e) {
+		handleSubmit(e, email, password);
+	}
 
 	return (
-		<form className='auth__form' noValidate onSubmit={handleSubmit}>
+		<form className='auth__form' noValidate onSubmit={handleLoginSubmit}>
 			<h2 className='auth__title'>{title}</h2>
 			<input
 				className='auth__input'
