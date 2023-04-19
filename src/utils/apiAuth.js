@@ -8,15 +8,7 @@ export function register(email, password) {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({ email, password }),
-	})
-		.then((res) => {
-			if (res.status === 201) {
-				return res.json();
-			} else {
-        return false;
-      }
-		})
-		.catch((err) => console.log(err));
+	}).then(getResponse);
 }
 
 export function login(email, password) {
@@ -27,15 +19,7 @@ export function login(email, password) {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({ email, password }),
-	})
-		.then((res) => {
-			if (res.status === 200) {
-				return res.json();
-			} else {
-				return false;
-			}
-		})
-		.catch((err) => console.log(err));
+	}).then(getResponse);
 }
 
 export const loginWithToken = () => {
@@ -45,13 +29,12 @@ export const loginWithToken = () => {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${localStorage.getItem('token')}`,
 		},
-	})
-		.then((res) => {
-			if (res.status === 200) {
-				return res.json();
-			} else {
-        return res;
-      }
-		})
-		.catch((err) => console.log(err));
+	}).then(getResponse);
+};
+
+const getResponse = (res) => {
+	if (!res.ok) {
+		return Promise.reject(`Ошибка : ${res.status}`);
+	}
+	return res.json();
 };

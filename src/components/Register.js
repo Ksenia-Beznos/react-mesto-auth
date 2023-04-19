@@ -1,13 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function Register({ title, btnName, setIsHomePage, handleSubmit }) {
+function Register({ title, btnName, handleSubmit }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
-	useEffect(() => {
-		setIsHomePage({ home: false, login: false, register: true });
-	}, []);
 
 	function handleChangeEmail(e) {
 		setEmail(e.target.value);
@@ -18,7 +14,7 @@ function Register({ title, btnName, setIsHomePage, handleSubmit }) {
 	}
 
 	function handleSubmitRegister(e) {
-		handleSubmit(e, email, password)
+		handleSubmit(e, email, password);
 	}
 
 	return (

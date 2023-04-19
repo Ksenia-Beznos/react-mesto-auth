@@ -10,13 +10,8 @@ function Main({
 	onDeleteCard,
 	onCardLike,
 	cards,
-	setIsHomePage,
 }) {
 	const currentUser = useContext(CurrentUserContext);
-
-	useEffect(() => {
-		setIsHomePage({ home: true, login: false, register: false });
-	}, []);
 
 	return (
 		<main className='content'>

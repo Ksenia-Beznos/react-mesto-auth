@@ -1,12 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-function Login({ title, btnName, setIsHomePage, handleSubmit }) {
+function Login({ title, btnName, handleSubmit }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
-	useEffect(() => {
-		setIsHomePage({ home: false, login: true, register: false });
-	}, []);
 
 	function handleChangeEmail(e) {
 		setEmail(e.target.value);
