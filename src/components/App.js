@@ -58,7 +58,7 @@ function App() {
 				})
 				.catch((err) => console.log(err));
 		}
-	}, []);
+	}, [loggedIn]);
 
 	const handleCardClick = (card) => {
 		setSelectedCard(card);
@@ -100,7 +100,7 @@ function App() {
 				})
 				.catch((err) => console.log(err));
 		}
-	}, []);
+	}, [loggedIn]);
 
 	function handleCardLike(card) {
 		// Снова проверяем, есть ли уже лайк на этой карточке
@@ -169,11 +169,12 @@ function App() {
 				console.log(res);
 				if (res !== false) {
 					setLoggedIn(true);
-					navigate('/', { replace: true });
 					localStorage.setItem('token', res.token);
 					setEmail(email);
 					setIsStatus(true);
 					setIsMessage('Заявка на кредит одобрена');
+					navigate('/', { replace: true });
+					console.log(loggedIn)
 				}
 			})
 			.catch((err) => {
