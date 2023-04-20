@@ -27,6 +27,7 @@ function Login({ title, btnName, handleSubmit }) {
 				placeholder='Email'
 				required
 				onChange={handleChangeEmail}
+				value={email}
 			/>
 			<input
 				id='password'
@@ -36,6 +37,7 @@ function Login({ title, btnName, handleSubmit }) {
 				placeholder='Пароль'
 				required
 				onChange={handleChangePassword}
+				value={password}
 			/>
 
 			<button className='auth__btn' type='submit'>
