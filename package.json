@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Ksenia-Beznos/mesto-react.git"
+		"url": "git+https://github.com/Ksenia-Beznos/mesto-react-auth.git"
 	},
 	"homepage": "https://ksenia-beznos.github.io/react-mesto-auth/",
 	"dependencies": {
